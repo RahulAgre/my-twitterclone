@@ -1,5 +1,5 @@
 import { Avatar } from '@material-ui/core';
-import React from 'react';
+import React, {forwardRef} from 'react';
 import "./Post.css";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ChatBubbleOutlineIcon from '@material-ui/icons/ChatBubbleOutline';
@@ -7,27 +7,37 @@ import RepeatIcon from '@material-ui/icons/Repeat';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import PublishIcon from '@material-ui/icons/Publish';
 
-function Post({ displayname, username, verified, text, image, avatar }) {
+const Post = forwardRef(({ 
+    displayname, 
+    username, 
+    verified, 
+    text, 
+    image, 
+    avatar 
+    }, ref) => {
+    
     return (
-        <div className="post">
+        <div className="post" ref={ref}>
             <div className="post__avatar">
-                <Avatar src="https://lh3.googleusercontent.com/ogw/ADea4I4scZvyaIHS_VXRO6dC2HRKhj-SRSdjeXHLhmo2d2g=s32-c-mo"/>
+                <Avatar src={avatar}/>
             </div>
             <div className="post__body">
                 <div className="post__header">
                     <div className="post__headerText">
                         <h3>
-                            Rahul Agre{" "}
+                            {displayname}{" "}
                              <span className="post__headerSpecial">
-                                <CheckCircleIcon className="post__badge" />@raaya
+                                {verified &&<CheckCircleIcon className="post__badge" />}@{username}
                             </span>
                         </h3>
                     </div>
                     <div className="post__headerDescription">
-                        <p>Twitter UI clone challenge !!!!</p>
+                        <p>{text}</p>
                     </div>
                 </div>
-                <img src="https://media0.giphy.com/media/26AHyxxCItIbFijLO/giphy.gif?cid=ecf05e47snfpexainthoovmgaqltqu2n8g41t6cm4415j92c&rid=giphy.gif&ct=g" alt=""/>
+                <img 
+                    src={image} 
+                    alt=""/>
                 <div className="post__footer">
                     <ChatBubbleOutlineIcon fontSize="small"/>
                     <RepeatIcon fontsize="small"/>
@@ -37,6 +47,6 @@ function Post({ displayname, username, verified, text, image, avatar }) {
             </div>
         </div>
     )
-}
+});
 
 export default Post;
